@@ -4,6 +4,7 @@ public class CarLotMain {
     public static void main (String [] args){
         int choice = 0;
         Scanner input = new Scanner(System.in);
+        CarLot inventory = new CarLot();
         
         System.out.println("[0] Exit");
         System.out.println("[1] Add a car to inventory");
@@ -20,7 +21,20 @@ public class CarLotMain {
 
         while (choice != 0){
             if (choice == 1){
-                
+                System.out.println("Enter id of car");
+                String id = input.nextLine();
+                System.out.println("Enter mileage of car");
+                int mileage = input.nextInt();
+                System.out.println("Enter mpg of car");
+                int mpg = input.nextInt();
+                System.out.println("Enter cost of car");
+                double cost = input.nextDouble();
+                System.out.println("Enter sales price of car");
+                double price = input.nextDouble();
+
+                inventory.addCar(id, mileage, mpg, cost, price);
+
+
             }
             else if (choice == 1){
                 

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class CarLotMain {
-    public static void main (String [] args){
+    public static void main (String [] args) throws Exception{
         int choice = 0;
         Scanner input = new Scanner(System.in);
         CarLot inventory = new CarLot();
@@ -31,12 +31,16 @@ public class CarLotMain {
                 double cost = input.nextDouble();
                 System.out.println("Enter sales price of car");
                 double price = input.nextDouble();
-
                 inventory.addCar(id, mileage, mpg, cost, price);
 
-
             }
-            else if (choice == 1){
+            else if (choice == 2){
+                System.out.println("Enter vehicle id");
+                String identifier = input.nextLine();
+                System.out.println("Enter how much the vehicle sold for: ");
+                double sellPrice = input.nextDouble();
+                inventory.sellCar(identifier, sellPrice);
+
                 
             }
             else if (choice == 2){

@@ -1,10 +1,18 @@
+/**
+ * CarLot Project : Step 3(CarLotMain Class)
+ * @author Anthony Epps
+ * 
+ */
 import java.util.Scanner;
 
 public class CarLotMain {
     public static void main (String [] args) throws Exception{
+        // Create and initialize choice variable and Scanner input, create CarLot Inventory
         int choice = 0;
         Scanner input = new Scanner(System.in);
         CarLot inventory = new CarLot();
+        
+        //Create do while loop to hold and control the logic
         do {
         System.out.println();
         System.out.println("[0] Exit");
@@ -20,7 +28,7 @@ public class CarLotMain {
         System.out.print("Enter a number from 0 to 8: ");
         choice = input.nextInt();
 
-         if (choice == 1){
+         if (choice == 1){  // Option 1: Add a Car
                 System.out.println("Enter id of car");
                 String id = input.next();
                 System.out.println("Enter mileage of car");
@@ -33,29 +41,29 @@ public class CarLotMain {
                 double price = input.nextDouble();
                 inventory.addCar(id, mileage, mpg, cost, price);
             }
-            else if (choice == 2){
+            else if (choice == 2){ // Option 2: Sell a Car
                 System.out.println("Enter vehicle id");
                 String identifier = input.next();
                 System.out.println("Enter how much the vehicle sold for: ");
                 double sellPrice = input.nextDouble();
                 inventory.sellCar(identifier, sellPrice);             
             }
-            else if (choice == 3){
+            else if (choice == 3){ // Option 3: List cars by order of aquisition!
                 System.out.println("Inventory List by aquisition:" + inventory.getCarsInOrderOfEntry());
             }
-            else if (choice == 4){
+            else if (choice == 4){ // Option 4: List cars from best MPG to worst MPG
                 System.out.println(" Work in Progress");
             }
-            else if (choice == 5){
+            else if (choice == 5){ // Option 5: Display the car with the best MPG
                 System.out.println("The car with the best MPG is : " + inventory.getCarWithBestMPG());
             }
-            else if (choice == 6){
+            else if (choice == 6){ // Option 6: Display the car with the highest mileage
                 System.out.println("The car with the highest mileage is : " + inventory.getCarWithHighestMileage());
             }
-            else if (choice == 7){
+            else if (choice == 7){ // Option 7: Display the average mpg of all cars in inventory
                 System.out.println("The average MPG of all cars currently in inventory: " + inventory.getAverageMPG());
             }
-            else if (choice == 8){
+            else if (choice == 8){ // Option 8: Display the total profit for all sold cars
                 System.out.println("Total Profit for all sold cars: " + inventory.getTotalProfit());
             }
         } while (choice != 0);

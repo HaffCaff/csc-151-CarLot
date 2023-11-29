@@ -9,6 +9,11 @@ import java.util.ListIterator;
 public class CarLot {
     private ArrayList<Car> inventory = new ArrayList<>();
 
+
+    /**
+     * Default Constructor
+     */
+    public CarLot() {};
     /**
      * Gets the list of cars in the inventory.
      * @return The list of cars in the inventory.
@@ -36,7 +41,7 @@ public class CarLot {
      * @param priceSold The price at which the car is sold.
      * @throws Exception If the car cannot be found or if it has already been sold.
      */
-    public void sellCar(String identifier, double priceSold) throws Exception {
+    public void sellCar(String identifier, double priceSold) throws IllegalArgumentException {
         Car c = null;
         boolean sold = false;
         ListIterator<Car> it = inventory.listIterator();
@@ -49,7 +54,7 @@ public class CarLot {
             }
         }
         if (!sold) {
-            throw new Exception("Car cannot be sold or was not found.");
+            throw new IllegalArgumentException("Car cannot be sold or was not found.");
         }
     }
 
@@ -111,7 +116,7 @@ public class CarLot {
         
         Car highestMileageCar = inventory.get(0);
         for (Car c : inventory) {
-            if (c.compareMiles(highestMileageCar) > 0) {
+            if (c.compareMileage(highestMileageCar) > 0) {
                 highestMileageCar = c;
             }
         }

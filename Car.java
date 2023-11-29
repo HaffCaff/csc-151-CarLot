@@ -195,7 +195,7 @@ public class Car {
      * @return returns an integer value that indicates whether the current car has fewer, more, 
      * or the same number of miles as the other car that is passed in as a parameter.
      */
-    public int compareMiles(Car otherCar) {
+    public int compareMileage(Car otherCar) {
         if (this.mileage < otherCar.mileage) {
             return -1;
         } else if (this.mileage > otherCar.mileage) {
@@ -211,7 +211,7 @@ public class Car {
      * @return an integer value that indicates whether the current car's sales price is less than, 
      * more than, or the same as the sales price of the other car that is passed in as a parameter.
      */
-    public int comparePrice(Car otherCar) {
+    public double compareSalesPrice(Car otherCar) {
         if (this.salesPrice < otherCar.salesPrice) {
             return -1;
         } else if (this.salesPrice > otherCar.salesPrice) {

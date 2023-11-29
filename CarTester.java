@@ -1,3 +1,8 @@
+/**
+ * CarLot Project : Step 3(CarLotMain Class)
+ * @author Anthony Epps
+ * 
+ */
 public class CarTester {
     public static void main (String [] args){
         Car a = new Car();

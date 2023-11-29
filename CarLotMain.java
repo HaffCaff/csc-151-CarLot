@@ -24,8 +24,10 @@ public class CarLotMain {
         System.out.println("[6] Display car with highest mileage");
         System.out.println("[7] Display overall MPG for the entire inventory");
         System.out.println("[8] Display Profit for all sold cars");
+        System.out.println("[9] Save Inventory");
+        System.out.println("[10] Load Inventory");
 
-        System.out.print("Enter a number from 0 to 8: ");
+        System.out.print("Enter a number from 0 to 8: \n");
         choice = input.nextInt();
 
          if (choice == 1){  // Option 1: Add a Car
@@ -65,6 +67,16 @@ public class CarLotMain {
             }
             else if (choice == 8){ // Option 8: Display the total profit for all sold cars
                 System.out.println("Total Profit for all sold cars: " + inventory.getTotalProfit());
+            }
+            else if (choice == 9){ // Option 8: Display the total profit for all sold cars
+                System.out.println("Saving Inventory file"); 
+                inventory.saveToDisk();
+                System.out.println("File saved to: " + CarLot.CARLOT_INVENTORY_LOCATION);
+            }
+            else if (choice == 10){ // Option 8: Display the total profit for all sold cars
+                System.out.println("Loading Inventory file"); 
+                inventory.loadFromDisk();
+                System.out.println("Inventory loaded and set from: " + CarLot.CARLOT_INVENTORY_LOCATION);
             }
         } while (choice != 0);
 

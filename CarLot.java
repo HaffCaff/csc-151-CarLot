@@ -1,12 +1,18 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Scanner;
 
 /**
  * CarLot class represents a car dealership's inventory of cars.
  * It allows adding cars, selling cars, and retrieving information about the cars.
  * @author Samip Khanal
+ * @author Anthony Epps
  */
 public class CarLot {
+    public static final String CARLOT_INVENTORY_LOCATION="carlot.csv";
     private ArrayList<Car> inventory = new ArrayList<>();
 
 
@@ -181,5 +187,83 @@ public class CarLot {
             }
         }
         return totalProfit;
+    }
+
+    public void saveToDisk() throws FileNotFoundException{
+        File file = new File(CARLOT_INVENTORY_LOCATION);
+        // Probably could have made this more efficient
+        // but since its a CSV, write each seperate var, using PRINTS, NOT PRINTLN
+        // and then at the end add the new line char to start next one.
+        // I did it this way so it would be easier to read back in when loading!
+        // as parsing the ToString value of each car seems hard
+        try {
+            try (PrintWriter writer = new PrintWriter(file)) {
+                for (int i=0;i<inventory.size();i++){
+                    writer.print(inventory.get(i).getId() + ",");
+                    writer.print(inventory.get(i).getMileage() + ",");
+                    writer.print(inventory.get(i).getMpg() + ",");
+                    writer.print(inventory.get(i).getCost() + ",");
+                    writer.print(inventory.get(i).getSalesPrice());
+                    writer.print("\n");
+                }
+            }
+
+        } 
+        catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+  
+
+    }
+
+    public void loadFromDisk() throws FileNotFoundException{
+        File file = new File(CARLOT_INVENTORY_LOCATION);
+        // this method only grabbed the last item line of csv? Apparently Next and NextLine get weird?
+        // try (Scanner reader = new Scanner(file)) {
+        //     reader.useDelimiter(",");
+        //     while (reader.hasNextLine()){
+        //         String line = reader.nextLine().trim(); //white space was causing errors
+        //         if (!line.isEmpty()){ // if line has text, do the things
+        //         String id = reader.next();
+        //         int mile = Integer.parseInt(reader.next());
+        //         int mpg = Integer.parseInt(reader.next());
+        //         double cost = Double.parseDouble(reader.next());
+        //         double sale = Double.parseDouble(reader.next());
+        //         Car c = new Car(id, mile, mpg, cost, sale);
+        //         inventory.add(c);
+        //     }
+        // }
+            // so I am treating this like the midterm code part, where I took text in and saved into a list to manipulate that way
+            try (Scanner reader = new Scanner(file)) {
+            reader.useDelimiter(",");
+            while (reader.hasNextLine()){
+                String line = reader.nextLine().trim(); //white space was causing errors
+                if (!line.isEmpty()){ // if line has text, do the things
+                    String[] values =  line.split(",");
+                    if (values.length == 5) {  //This only works because I know how many values are in the csv
+                        String id = values[0];
+                        int mile = Integer.parseInt(values[1]);
+                        int mpg = Integer.parseInt(values[2]);
+                        double cost = Double.parseDouble(values[3]);
+                        double sale = Double.parseDouble(values[4]);
+                        Car c = new Car(id, mile, mpg, cost, sale);
+                        inventory.add(c);
+                }
+            }
+        }
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+      
+    }
+
+    public void setInventory(){
+        try {
+            loadFromDisk();
+        } catch (FileNotFoundException e) {
+            
+            e.printStackTrace();
+        }
     }
 }

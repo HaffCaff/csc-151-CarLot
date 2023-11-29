@@ -1,5 +1,5 @@
 /**
- * CarLot Project : Step 3(CarLotMain Class)
+ * CarLot Project : CarLotTester
  * @author Anthony Epps
  * 
  */

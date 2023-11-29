@@ -52,7 +52,7 @@ public class CarLotMain {
                 System.out.println("Inventory List by aquisition:" + inventory.getCarsInOrderOfEntry());
             }
             else if (choice == 4){ // Option 4: List cars from best MPG to worst MPG
-                System.out.println(" Work in Progress");
+                System.out.println(" Inventory List by MPG" + inventory.getCarsSortedByMPG());
             }
             else if (choice == 5){ // Option 5: Display the car with the best MPG
                 System.out.println("The car with the best MPG is : " + inventory.getCarWithBestMPG());
@@ -67,6 +67,8 @@ public class CarLotMain {
                 System.out.println("Total Profit for all sold cars: " + inventory.getTotalProfit());
             }
         } while (choice != 0);
+
+        input.close();
             
     }
 }

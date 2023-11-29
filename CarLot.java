@@ -85,6 +85,30 @@ public class CarLot {
         return inventoryCopy;
     }
 
+    public ArrayList<Car> getCarsSortedByMPG() {
+        ArrayList<Car> inventoryCopy = new ArrayList<>(inventory);
+        //Basic Selection sort, convert from Array to ArrayList
+        for (int i = 0; i < inventoryCopy.size() - 1; i++) {
+            
+            int maxIndex = i;
+            for (int j = i + 1; j < inventoryCopy.size(); j++) {
+                if (inventoryCopy.get(j).compareMPG(inventoryCopy.get(maxIndex)) == 1){
+                    maxIndex = j;
+                }
+            }
+
+            Car temp = inventoryCopy.get(maxIndex);
+            inventoryCopy.set(maxIndex, inventoryCopy.get(i));
+            //This....I spent an EGREGEIOUS amount of time trying to figure out why this broke noy only this test, but other test
+            // on the CarLotTester (It was doubling price of profit, or breaking Sold....BECAUSE I WAS CHANGING INVENTORY, NOT THE COPY....)
+            //inventory.set(i, temp);
+            // - Anthony Epps
+            inventoryCopy.set(i,temp);
+        }
+
+        return inventoryCopy;
+    }
+
     /**
      * Returns the car with the best miles per gallon (MPG).
      * @return The car with the best MPG.

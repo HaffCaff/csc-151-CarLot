@@ -11,9 +11,9 @@ import java.util.Scanner;
  * @author Samip Khanal
  * @author Anthony Epps
  */
-public class CarLot {
+public class CarLot extends ArrayList<Car> {
     public static final String CARLOT_INVENTORY_LOCATION="carlot.csv";
-    private ArrayList<Car> inventory = new ArrayList<>();
+    //private ArrayList<Car> inventory = new ArrayList<>();
 
 
     /**
@@ -25,7 +25,7 @@ public class CarLot {
      * @return The list of cars in the inventory.
      */
     public ArrayList<Car> getInventory() {
-        return this.inventory;
+        return this;
     }
 
     /**
@@ -38,7 +38,7 @@ public class CarLot {
      */
     public void addCar(String id, int mileage, int mpg, double cost, double salesPrice) {
         Car c = new Car(id, mileage, mpg, cost, salesPrice);
-        inventory.add(c);
+        this.add(c);
     }
 
     /**
@@ -50,7 +50,7 @@ public class CarLot {
     public void sellCar(String identifier, double priceSold) throws IllegalArgumentException {
         Car c = null;
         boolean sold = false;
-        ListIterator<Car> it = inventory.listIterator();
+        ListIterator<Car> it = this.listIterator();
         while (it.hasNext()) {
             c = it.next();
             if (!c.isSold() && identifier.equalsIgnoreCase(c.getId())) {
@@ -71,7 +71,7 @@ public class CarLot {
      */
     public Car findCarByIdentifier(String identifier) {
         Car foundCar = null;
-        ListIterator<Car> it = inventory.listIterator();
+        ListIterator<Car> it = this.listIterator();
         while (it.hasNext()) {
             Car c = it.next();
             if (identifier.equalsIgnoreCase(c.getId())) {
@@ -87,12 +87,12 @@ public class CarLot {
      * @return A copy of the inventory.
      */
     public ArrayList<Car> getCarsInOrderOfEntry() {
-        ArrayList<Car> inventoryCopy = new ArrayList<>(inventory);
+        ArrayList<Car> inventoryCopy = new ArrayList<>(this);
         return inventoryCopy;
     }
 
     public ArrayList<Car> getCarsSortedByMPG() {
-        ArrayList<Car> inventoryCopy = new ArrayList<>(inventory);
+        ArrayList<Car> inventoryCopy = new ArrayList<>(this);
         //Basic Selection sort, convert from Array to ArrayList
         for (int i = 0; i < inventoryCopy.size() - 1; i++) {
             
@@ -121,12 +121,12 @@ public class CarLot {
      * @throws Exception If there are no cars in the inventory.
      */
     public Car getCarWithBestMPG() throws Exception {
-        if (inventory.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Exception("No cars in inventory.");
         }
         
-        Car bestMPGCar = inventory.get(0);
-        for (Car c : inventory) {
+        Car bestMPGCar = this.get(0);
+        for (Car c : this) {
             if (c.compareMPG(bestMPGCar) > 0) {
                 bestMPGCar = c;
             }
@@ -140,12 +140,12 @@ public class CarLot {
      * @throws Exception If there are no cars in the inventory.
      */
     public Car getCarWithHighestMileage() throws Exception {
-        if (inventory.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Exception("No cars in inventory.");
         }
         
-        Car highestMileageCar = inventory.get(0);
-        for (Car c : inventory) {
+        Car highestMileageCar = this.get(0);
+        for (Car c : this) {
             if (c.compareMileage(highestMileageCar) > 0) {
                 highestMileageCar = c;
             }
@@ -159,15 +159,15 @@ public class CarLot {
      * @throws Exception If there are no cars in the inventory.
      */
     public double getAverageMPG() throws Exception {
-        if (inventory.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Exception("No cars in inventory.");
         }
         
         double totalMPG = 0;
-        for (Car c : inventory) {
+        for (Car c : this) {
             totalMPG += c.getMpg();
         }
-        return totalMPG / inventory.size();
+        return totalMPG / this.size();
     }
 
     /**
@@ -176,12 +176,12 @@ public class CarLot {
      * @throws Exception If there are no cars in the inventory.
      */
     public double getTotalProfit() throws Exception {
-        if (inventory.isEmpty()) {
+        if (this.isEmpty()) {
             throw new Exception("No cars in inventory.");
         }
         
         double totalProfit = 0;
-        for (Car c : inventory) {
+        for (Car c : this) {
             if (c.isSold()) {
                 totalProfit += c.getProfit();
             }
@@ -198,12 +198,15 @@ public class CarLot {
         // as parsing the ToString value of each car seems hard
         try {
             try (PrintWriter writer = new PrintWriter(file)) {
-                for (int i=0;i<inventory.size();i++){
-                    writer.print(inventory.get(i).getId() + ",");
-                    writer.print(inventory.get(i).getMileage() + ",");
-                    writer.print(inventory.get(i).getMpg() + ",");
-                    writer.print(inventory.get(i).getCost() + ",");
-                    writer.print(inventory.get(i).getSalesPrice());
+                for (int i=0;i<this.size();i++){
+                    writer.print(this.get(i).getId() + ",");
+                    writer.print(this.get(i).getMileage() + ",");
+                    writer.print(this.get(i).getMpg() + ",");
+                    writer.print(this.get(i).getCost() + ",");
+                    writer.print(this.get(i).getSalesPrice()+ ",");
+                    writer.print(this.get(i).isSold()+ ",");
+                    writer.print(this.get(i).getPriceSold()+ ",");
+                    writer.print(this.get(i).getProfit());
                     writer.print("\n");
                 }
             }
@@ -240,14 +243,20 @@ public class CarLot {
                 String line = reader.nextLine().trim(); //white space was causing errors
                 if (!line.isEmpty()){ // if line has text, do the things
                     String[] values =  line.split(",");
-                    if (values.length == 5) {  //This only works because I know how many values are in the csv
+                    if (values.length == 8) {  //This only works because I know how many values are in the csv
                         String id = values[0];
                         int mile = Integer.parseInt(values[1]);
                         int mpg = Integer.parseInt(values[2]);
                         double cost = Double.parseDouble(values[3]);
                         double sale = Double.parseDouble(values[4]);
+                        boolean sold = Boolean.parseBoolean(values[5]);
+                        double sellprice = Double.parseDouble(values[6]);
+                        double profit = Double.parseDouble(values[7]);
                         Car c = new Car(id, mile, mpg, cost, sale);
-                        inventory.add(c);
+                        c.setSold(sold);
+                        c.setPriceSold(sellprice);
+                        c.setProfit(profit);
+                        this.add(c);
                 }
             }
         }

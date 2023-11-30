@@ -18,7 +18,7 @@ public class CarLotMain {
         System.out.println("[0] Exit");
         System.out.println("[1] Add a car to inventory");
         System.out.println("[2] Sell a car from inventory");
-        System.out.println("[3] List Inventory by rder of acquisition");
+        System.out.println("[3] List Inventory by order of acquisition");
         System.out.println("[4] List inventory from best MPG to Worst MPG");
         System.out.println("[5] Display car with best MPG");
         System.out.println("[6] Display car with highest mileage");
@@ -27,7 +27,7 @@ public class CarLotMain {
         System.out.println("[9] Save Inventory");
         System.out.println("[10] Load Inventory");
 
-        System.out.print("Enter a number from 0 to 8: \n");
+        System.out.print("Enter a number from 0 to 10: \n");
         choice = input.nextInt();
 
          if (choice == 1){  // Option 1: Add a Car
@@ -68,12 +68,12 @@ public class CarLotMain {
             else if (choice == 8){ // Option 8: Display the total profit for all sold cars
                 System.out.println("Total Profit for all sold cars: " + inventory.getTotalProfit());
             }
-            else if (choice == 9){ // Option 8: Display the total profit for all sold cars
+            else if (choice == 9){ // Option 9: Save to file
                 System.out.println("Saving Inventory file"); 
                 inventory.saveToDisk();
                 System.out.println("File saved to: " + CarLot.CARLOT_INVENTORY_LOCATION);
             }
-            else if (choice == 10){ // Option 8: Display the total profit for all sold cars
+            else if (choice == 10){ // Option 10: Load from File
                 System.out.println("Loading Inventory file"); 
                 inventory.loadFromDisk();
                 System.out.println("Inventory loaded and set from: " + CarLot.CARLOT_INVENTORY_LOCATION);

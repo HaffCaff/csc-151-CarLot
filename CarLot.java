@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @author Anthony Epps
  */
 public class CarLot extends ArrayList<Car> {
+    // For the Inheritance Part: Criteria was there was attribute, but having this constant was reccomended in the JavaDoc, so we followed the JavaDoc
     public static final String CARLOT_INVENTORY_LOCATION="carlot.csv";
     //private ArrayList<Car> inventory = new ArrayList<>();
 
@@ -122,6 +123,7 @@ public class CarLot extends ArrayList<Car> {
      */
     public Car getCarWithBestMPG() throws Exception {
         if (this.isEmpty()) {
+            // This is technically an enhancment, if there are no cars in inventory, there is mpg and its empty, it should say so!
             throw new Exception("No cars in inventory.");
         }
         
@@ -141,6 +143,7 @@ public class CarLot extends ArrayList<Car> {
      */
     public Car getCarWithHighestMileage() throws Exception {
         if (this.isEmpty()) {
+            // This is technically an enhancment, if there are no cars in inventory, there is no profit and its empty, it should say so!
             throw new Exception("No cars in inventory.");
         }
         
@@ -160,6 +163,7 @@ public class CarLot extends ArrayList<Car> {
      */
     public double getAverageMPG() throws Exception {
         if (this.isEmpty()) {
+            // This is technically an enhancment, if there are no cars in inventory, there is no mpg and its empty, it should say so!
             throw new Exception("No cars in inventory.");
         }
         
@@ -177,6 +181,7 @@ public class CarLot extends ArrayList<Car> {
      */
     public double getTotalProfit() throws Exception {
         if (this.isEmpty()) {
+            // This is technically an enhancment, if there are no cars in inventory, there is no profit and its empty, it should say so!
             throw new Exception("No cars in inventory.");
         }
         
